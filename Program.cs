@@ -166,10 +166,6 @@ internal class Program
             {
                 Directory.CreateDirectory(folderName + "\\ClientSettings");
             }
-            if (!File.Exists(oldConfig))
-            {
-                File.Create(oldConfig);
-            }
             File.Copy(newConfig, clonedNewConfig);
             File.Move(newConfig, oldConfig);
             File.Move(clonedNewConfig, newConfig);
