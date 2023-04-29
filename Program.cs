@@ -49,17 +49,17 @@ namespace WinFormsApp1
         {
             string adminPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFilesX86), @"Roblox\Versions");
             string userPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Roblox\Versions");
-            DirectoryInfo Di = new DirectoryInfo(userPath);
+            DirectoryInfo directory = new DirectoryInfo(userPath);
             try
             {
-                DirectoryInfo[] DiArr = Di.GetDirectories();
+                DirectoryInfo[] tryDiArr = directory.GetDirectories();
             }
             catch
             {
-                Di = new DirectoryInfo(adminPath);
+                directory = new DirectoryInfo(adminPath);
                 try
                 {
-                    DirectoryInfo[] DiArr = Di.GetDirectories();
+                    DirectoryInfo[] tryDiArr = directory.GetDirectories();
                 }
                 catch
                 {
@@ -70,7 +70,7 @@ namespace WinFormsApp1
             int counting = 0;
             DateTime[] folderAges = new DateTime[3];
             string[] folderNames = new string[3];
-            DirectoryInfo[] diArr = Di.GetDirectories();
+            DirectoryInfo[] diArr = directory.GetDirectories();
             if (diArr.Length > 1)
             {
                 Logs.Text += "Checking folders in directory" + Environment.NewLine;
