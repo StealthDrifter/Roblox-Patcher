@@ -47,63 +47,78 @@ namespace WinFormsApp1
 
         private static bool TryFindRoblox(out string robloxPath, TextBox Logs)
         {
-            string adminPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFilesX86), @"Roblox\Versions");
-            string userPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Roblox\Versions");
-            DirectoryInfo directory = new DirectoryInfo(userPath);
             try
             {
-                DirectoryInfo[] tryDiArr = directory.GetDirectories();
-            }
-            catch
-            {
-                directory = new DirectoryInfo(adminPath);
-                try
+                string adminPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFilesX86), @"Roblox\Versions");
+                string userPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), @"Roblox\Versions");
+                DirectoryInfo directory = new DirectoryInfo(userPath);
+                if (!directory.Exists)
                 {
-                    DirectoryInfo[] tryDiArr = directory.GetDirectories();
-                }
-                catch
-                {
-                    robloxPath = "invalid";
-                    return false;
-                }
-            }
-            int counting = 0;
-            DateTime[] folderAges = new DateTime[3];
-            string[] folderNames = new string[3];
-            DirectoryInfo[] diArr = directory.GetDirectories();
-            if (diArr.Length > 1)
-            {
-                Logs.Text += "Checking folders in directory" + Environment.NewLine;
-                foreach (DirectoryInfo dri in diArr)
-                {
-                    if (!File.Exists(Path.Combine(dri.FullName, "RobloxStudioBeta.exe")))
+                    directory = new DirectoryInfo(adminPath);
+                    if (!directory.Exists)
                     {
-                        DateTime dt = Directory.GetCreationTime(dri.FullName);
-                        folderNames[counting] = dri.FullName;
-                        folderAges[counting] = dt;
-                        counting += 1;
+                        robloxPath = "invalid";
+                        return false;
                     }
                 }
-                bool firstOrSecond = folderAges[0] > folderAges[1];
-                switch (firstOrSecond)
+                int counting = 0;
+                DateTime[] folderAges = new DateTime[3];
+                string[] folderNames = new string[3];
+                DirectoryInfo[] diArr = directory.GetDirectories();
+                switch (diArr.Length)
                 {
-                    case true:
-                        robloxPath = folderNames[0];
-                        return true;
+                    case 0:
+                        robloxPath = "invalid";
+                        return false;
 
-                    case false:
-                        robloxPath = folderNames[1];
-                        return true;
+                    case 1:
+                        Logs.Text += "One folder Present" + Environment.NewLine;
+                        foreach (DirectoryInfo dri in diArr)
+                        {
+                            if (!File.Exists(Path.Combine(dri.FullName, "RobloxStudioBeta.exe")))
+                            {
+                                robloxPath = dri.FullName;
+                                return true;
+                            }
+                            else
+                            {
+                                robloxPath = "invalid";
+                                return false;
+                            }
+                        }
+                        robloxPath = "invalid";
+                        return false;
+
+                    case > 1:
+                        Logs.Text += "Checking folders in directory" + Environment.NewLine;
+                        foreach (DirectoryInfo dri in diArr)
+                        {
+                            if (!File.Exists(Path.Combine(dri.FullName, "RobloxStudioBeta.exe")))
+                            {
+                                DateTime dt = Directory.GetCreationTime(dri.FullName);
+                                folderNames[counting] = dri.FullName;
+                                folderAges[counting] = dt;
+                                counting += 1;
+                            }
+                        }
+                        bool firstOrSecond = folderAges[0] > folderAges[1];
+                        switch (firstOrSecond)
+                        {
+                            case true:
+                                robloxPath = folderNames[0];
+                                return true;
+
+                            case false:
+                                robloxPath = folderNames[1];
+                                return true;
+                        }
                 }
-            }
-            else
-            {
-                Logs.Text += "One folder Present" + Environment.NewLine;
-                foreach (DirectoryInfo dri in diArr)
-                {
-                    robloxPath = dri.FullName;
-                    return true;
-                }
+            } catch (Exception ex)
+            { 
+                Console.WriteLine(ex.ToString());
+                Logs.Text += ex.ToString() + Environment.NewLine;
+                robloxPath = "invalid";
+                return false;
             }
             robloxPath = "invalid";
             return false;
