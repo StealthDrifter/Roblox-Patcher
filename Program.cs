@@ -1,4 +1,8 @@
 using Microsoft.VisualBasic.Logging;
+using Roblox_Patcher;
+using System.Text.Json.Nodes;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace WinFormsApp1
 {
@@ -7,8 +11,10 @@ namespace WinFormsApp1
 
         public static bool modifyCursor = false;
         public static bool modifyDeathSound = false;
-        public static bool modifyFps = false;
-        public static bool modifyAll = false;
+        public static bool modifyConfig = false;
+        public static bool vulkan = false;
+        public static bool allGraphics = false;
+        public static int fps = 0;
 
         [STAThread]
         static void Main()
@@ -29,16 +35,26 @@ namespace WinFormsApp1
                 return;
             }
 
+            if (modifyConfig && !ModifyConfig())
+            {
+                Logs.Text += "Missing config file in Assets" + Environment.NewLine;
+                string message3 = "Please create a ClientAppSettings.json in the Assets folder";
+                string caption3 = "Failure! :(";
+                MessageBoxButtons buttons3 = MessageBoxButtons.OK;
+                _ = MessageBox.Show(message3, caption3, buttons3);
+                return;
+            }
+
             if (!TryModify(robloxPath, Logs))
             {
-                Logs.Text += "\nSomething went horribly wrong" + Environment.NewLine;
+                Logs.Text += "Something went horribly wrong" + Environment.NewLine;
                 string message3 = "Oops! something went wrong! contact developer";
                 string caption3 = "Failure! :(";
                 MessageBoxButtons buttons3 = MessageBoxButtons.OK;
                 _ = MessageBox.Show(message3, caption3, buttons3);
                 return;
             }
-            Logs.Text += "\nFinished modifying game files" + Environment.NewLine;
+            Logs.Text += "Finished modifying game files" + Environment.NewLine;
             string message2 = "Roblox has been modified!";
             string caption2 = "Success!";
             MessageBoxButtons buttons2 = MessageBoxButtons.OK;
@@ -124,11 +140,33 @@ namespace WinFormsApp1
             return false;
         }
 
+        private static bool ModifyConfig()
+        {
+            if (!File.Exists(@".\Assets\ClientAppSettings.json")) {
+                return false;
+            }
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true
+            };
+            Config config = new Config
+            {
+                DFIntTaskSchedulerTargetFps = fps.ToString(),
+                FFlagDebugGraphicsPreferVulkan = vulkan,
+                FFlagFixGraphicsQuality = allGraphics,
+            };
+            string configFilePath = @".\Assets\ClientAppSettings.json";
+            string jsonString = JsonSerializer.Serialize(config, options);
+            File.WriteAllText(configFilePath, jsonString);
+
+            return true;
+        }
+
         private static bool TryModify(string folderName, TextBox Logs)
         {
             try
             {
-                if (modifyDeathSound || modifyAll)
+                if (modifyDeathSound)
                 {
                     string newSoundFile = @".\Assets\ouch.ogg";
                     string oldSoundFile = Path.Combine(folderName, @"content\sounds\ouch.ogg");
@@ -137,7 +175,7 @@ namespace WinFormsApp1
                     File.Copy(newSoundFile, oldSoundFile, true); // replaces old sound file with desired sound file
                     Logs.Text += "Finished modifying Death Sound" + Environment.NewLine;
                 }
-                if (modifyCursor || modifyAll)
+                if (modifyCursor)
                 {
                     string newFarCursor = @".\Assets\ArrowFarCursor.png";
                     string newArrowCursor = @".\Assets\ArrowCursor.png";
@@ -149,8 +187,7 @@ namespace WinFormsApp1
                     File.Copy(newArrowCursor, oldArrowCursor, true);
                     Logs.Text += "Finished modifying Cursor" + Environment.NewLine;
                 }
-
-                if (modifyFps || modifyAll)
+                if (modifyConfig)
                 {
                     string newConfig = @".\Assets\ClientAppSettings.json";
                     string oldConfig = Path.Combine(folderName, @"ClientSettings\ClientAppSettings.json");

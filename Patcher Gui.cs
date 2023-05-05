@@ -7,17 +7,45 @@ namespace WinFormsApp1
         public Form1()
         {
             InitializeComponent();
+            FPS.Visible = false;
         }
 
         public void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
+            // change cursor checkbox
         }
-
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
+            // change death sound checkbox
         }
-
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
+        {
+            // change FPS cap checkbox
+            FPS.Visible = ChangeFPSCap.Checked;
+            if (!ChangeFPSCap.Checked) 
+            {
+                Program.fps = 0;
+            }
+        }
+        
+        private void UnlockFPS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (UnlockFPS.Checked)
+            {
+                ChangeFPSCap.Visible = false;
+                ChangeFPSCap.Checked = false;
+                Program.fps = 99999999;
+            }
+            if (!UnlockFPS.Checked)
+            {
+                ChangeFPSCap.Visible = true;
+                Program.fps = 0;
+            }
+        }
+        private void vulkanCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+        }
+        private void GraphicUnlock_CheckedChanged(object sender, EventArgs e)
         {
         }
 
@@ -29,24 +57,37 @@ namespace WinFormsApp1
 
         public void updateBools()
         {
-            Program.modifyCursor = checkBox1.Checked;
-            Program.modifyDeathSound = checkBox2.Checked;
-            Program.modifyFps = checkBox3.Checked;
+            Program.modifyCursor = ChangeCursor.Checked;
+            Program.modifyDeathSound = ChangeSound.Checked;
+            Program.modifyConfig = UnlockFPS.Checked || ChangeFPSCap.Checked || vulkanCheckBox.Checked || GraphicUnlock.Checked;
+            Program.vulkan = vulkanCheckBox.Checked;
+            Program.allGraphics = GraphicUnlock.Checked;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-        }
-
-        public void addItemToListBox(string item)
-        {
-            Logs.Text += item + Environment.NewLine;
         }
 
         private void Logs_TextChanged(object sender, EventArgs e)
         {
-
         }
+
+        private void FPS_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(FPS.Text, out var fpsvar))
+            {
+                Program.fps = fpsvar;
+            }
+        }
+
+        private void SelectAll_Click(object sender, EventArgs e)
+        {
+            ChangeCursor.Checked = true;
+            ChangeSound.Checked = true;
+            UnlockFPS.Checked = true;
+            vulkanCheckBox.Checked = true;
+            GraphicUnlock.Checked = true;
+        }
+
     }
 }
