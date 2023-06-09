@@ -16,7 +16,9 @@ step 4: inside this folder, create a file named ClientAppSettings.json ![image](
 step 5: Open the json file with notepad copy paste this
 
  {
+
 "DFIntTaskSchedulerTargetFps": 200000000,
+
 }
 
 Note that doesn't have to be the number, do what ever number you want it to max out at I did 220
