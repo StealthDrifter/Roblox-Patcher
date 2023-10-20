@@ -32,3 +32,8 @@ Note that doesn't have to be the number, do what ever number you want it to max 
 
 step 6: save and open roblox
 you can change the number to anything
+
+
+
+
+shoutout to "joe" for gui redesign
