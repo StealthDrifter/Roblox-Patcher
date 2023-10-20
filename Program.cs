@@ -28,37 +28,25 @@ namespace WinFormsApp1
             if (!TryFindRoblox(out var robloxPath, Logs))
             {
                 Logs.Text += "Roblox was not detected on this computer" + Environment.NewLine;
-                string message = "Roblox was not detected on this computer";
-                string caption = "Failure! :(";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                _ = MessageBox.Show(message, caption, buttons);
+                MessageBox.Show("Roblox was not detected on this computer", "Failure! :(", MessageBoxButtons.OK);
                 return;
             }
 
             if (modifyConfig && !ModifyConfig())
             {
                 Logs.Text += "Missing config file in Assets" + Environment.NewLine;
-                string message3 = "Please create a ClientAppSettings.json in the Assets folder";
-                string caption3 = "Failure! :(";
-                MessageBoxButtons buttons3 = MessageBoxButtons.OK;
-                _ = MessageBox.Show(message3, caption3, buttons3);
+                MessageBox.Show("Please create a ClientAppSettings.json in the Assets folder", "Failure! :(", MessageBoxButtons.OK);
                 return;
             }
 
             if (!TryModify(robloxPath, Logs))
             {
                 Logs.Text += "Something went horribly wrong" + Environment.NewLine;
-                string message3 = "Oops! something went wrong! contact developer";
-                string caption3 = "Failure! :(";
-                MessageBoxButtons buttons3 = MessageBoxButtons.OK;
-                _ = MessageBox.Show(message3, caption3, buttons3);
+                MessageBox.Show("Oops! something went wrong! contact developer", "Failure! :(", MessageBoxButtons.OK);
                 return;
             }
             Logs.Text += "Finished modifying game files" + Environment.NewLine;
-            string message2 = "Roblox has been modified!";
-            string caption2 = "Success!";
-            MessageBoxButtons buttons2 = MessageBoxButtons.OK;
-            _ = MessageBox.Show(message2, caption2, buttons2);
+            MessageBox.Show("Roblox has been modified!", "Success!", MessageBoxButtons.OK);
         }
 
         private static bool TryFindRoblox(out string robloxPath, TextBox Logs)
