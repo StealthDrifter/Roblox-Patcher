@@ -3,6 +3,10 @@ Allows you to modify your cursor, death sound, and config for ROBLOX.
 Config settings currently include: Setting FPS cap/Unlocking, Enabling all 21 graphics settings, and enabling Vulkan API.
 When changing files in the Assets folder, make sure they have the same name and file extension.
 
+preview of program, win10/win11 ![image](https://github.com/StealthDrifter/Roblox-Patcher/assets/53316578/4b7e325a-f83e-40f8-b824-e7e9d788d35e) ![image](https://github.com/StealthDrifter/Roblox-Patcher/assets/53316578/f537f0d2-6073-48ac-9cd5-599ec9dcbeff)
+
+
+
 heres how to create a config file and set fps for the game without using the program:
 
 Step 1: navigate to your roblox folder, this can be in appdata/local or program files(86x)
