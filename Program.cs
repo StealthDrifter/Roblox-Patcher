@@ -77,9 +77,9 @@ namespace WinFormsApp1
                         return false;
                     }
                 }
-                int counting = 0;
-                DateTime[] folderAges = new DateTime[3];
-                string[] folderNames = new string[3];
+                List<FolderData> folderData = new List<FolderData>();
+                // DateTime[] folderAges = new DateTime[3];
+                // string[] folderNames = new string[3];
                 DirectoryInfo[] diArr = directory.GetDirectories();
                 switch (diArr.Length)
                 {
@@ -109,25 +109,14 @@ namespace WinFormsApp1
                         Logs.Text += "Checking folders in directory" + Environment.NewLine;
                         foreach (DirectoryInfo dri in diArr)
                         {
-                            if (!File.Exists(Path.Combine(dri.FullName, "RobloxStudioBeta.exe")))
+                            if (!File.Exists(Path.Combine(dri.FullName, "RobloxStudioBeta.exe")) && File.Exists(Path.Combine(dri.FullName, "RobloxPlayerBeta.exe")))
                             {
                                 DateTime dt = Directory.GetCreationTime(dri.FullName);
-                                folderNames[counting] = dri.FullName;
-                                folderAges[counting] = dt;
-                                counting += 1;
+                                folderData.Add(new FolderData() { folderAge = dt, folderDirectory = dri.FullName});
                             }
                         }
-                        bool firstOrSecond = folderAges[0] > folderAges[1];
-                        switch (firstOrSecond)
-                        {
-                            case true:
-                                robloxPath = folderNames[0];
-                                return true;
-
-                            case false:
-                                robloxPath = folderNames[1];
-                                return true;
-                        }
+                        robloxPath = folderData.MaxBy(FolderData => FolderData.folderAge).folderDirectory;
+                        return true;
                 }
             } catch (Exception ex)
             { 
