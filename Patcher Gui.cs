@@ -4,6 +4,7 @@ namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
@@ -22,12 +23,12 @@ namespace WinFormsApp1
         {
             // change FPS cap checkbox
             FPS.Visible = ChangeFPSCap.Checked;
-            if (!ChangeFPSCap.Checked) 
+            if (!ChangeFPSCap.Checked)
             {
                 Program.fps = 0;
             }
         }
-        
+
         private void UnlockFPS_CheckedChanged(object sender, EventArgs e)
         {
             if (UnlockFPS.Checked)

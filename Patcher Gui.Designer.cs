@@ -28,146 +28,163 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ChangeCursor = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.ChangeSound = new System.Windows.Forms.CheckBox();
-            this.ChangeFPSCap = new System.Windows.Forms.CheckBox();
-            this.Logs = new System.Windows.Forms.TextBox();
-            this.vulkanCheckBox = new System.Windows.Forms.CheckBox();
-            this.FPS = new System.Windows.Forms.TextBox();
-            this.UnlockFPS = new System.Windows.Forms.CheckBox();
-            this.SelectAll = new System.Windows.Forms.Button();
-            this.GraphicUnlock = new System.Windows.Forms.CheckBox();
-            this.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            ChangeCursor = new CheckBox();
+            button1 = new Button();
+            ChangeSound = new CheckBox();
+            ChangeFPSCap = new CheckBox();
+            Logs = new TextBox();
+            vulkanCheckBox = new CheckBox();
+            FPS = new TextBox();
+            UnlockFPS = new CheckBox();
+            SelectAll = new Button();
+            GraphicUnlock = new CheckBox();
+            SuspendLayout();
             // 
             // ChangeCursor
             // 
-            this.ChangeCursor.AutoSize = true;
-            this.ChangeCursor.Location = new System.Drawing.Point(330, 12);
-            this.ChangeCursor.Name = "ChangeCursor";
-            this.ChangeCursor.Size = new System.Drawing.Size(146, 19);
-            this.ChangeCursor.TabIndex = 0;
-            this.ChangeCursor.Text = "Change Cursor Texture";
-            this.ChangeCursor.UseVisualStyleBackColor = true;
-            this.ChangeCursor.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            ChangeCursor.AutoSize = true;
+            ChangeCursor.Location = new Point(330, 12);
+            ChangeCursor.Name = "ChangeCursor";
+            ChangeCursor.Size = new Size(146, 19);
+            ChangeCursor.TabIndex = 0;
+            ChangeCursor.Text = "Change Cursor Texture";
+            ChangeCursor.UseVisualStyleBackColor = true;
+            ChangeCursor.CheckedChanged += checkBox1_CheckedChanged;
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 63F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(204, 112);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(286, 122);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Patch!";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            button1.BackColor = Color.FromArgb(24, 24, 24);
+            button1.FlatAppearance.BorderColor = Color.FromArgb(64, 64, 64);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI", 63F, FontStyle.Regular, GraphicsUnit.Point);
+            button1.ForeColor = SystemColors.ButtonFace;
+            button1.Location = new Point(204, 112);
+            button1.Name = "button1";
+            button1.Size = new Size(286, 122);
+            button1.TabIndex = 1;
+            button1.Text = "Patch!";
+            button1.TextAlign = ContentAlignment.TopCenter;
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // ChangeSound
             // 
-            this.ChangeSound.AutoSize = true;
-            this.ChangeSound.Location = new System.Drawing.Point(330, 37);
-            this.ChangeSound.Name = "ChangeSound";
-            this.ChangeSound.Size = new System.Drawing.Size(138, 19);
-            this.ChangeSound.TabIndex = 2;
-            this.ChangeSound.Text = "Change Death Sound";
-            this.ChangeSound.UseVisualStyleBackColor = true;
-            this.ChangeSound.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            ChangeSound.AutoSize = true;
+            ChangeSound.Location = new Point(330, 37);
+            ChangeSound.Name = "ChangeSound";
+            ChangeSound.Size = new Size(138, 19);
+            ChangeSound.TabIndex = 2;
+            ChangeSound.Text = "Change Death Sound";
+            ChangeSound.UseVisualStyleBackColor = true;
+            ChangeSound.CheckedChanged += checkBox2_CheckedChanged;
             // 
             // ChangeFPSCap
             // 
-            this.ChangeFPSCap.AutoSize = true;
-            this.ChangeFPSCap.Location = new System.Drawing.Point(195, 62);
-            this.ChangeFPSCap.Name = "ChangeFPSCap";
-            this.ChangeFPSCap.Size = new System.Drawing.Size(113, 19);
-            this.ChangeFPSCap.TabIndex = 3;
-            this.ChangeFPSCap.Text = "Change FPS Cap";
-            this.ChangeFPSCap.UseVisualStyleBackColor = true;
-            this.ChangeFPSCap.CheckedChanged += new System.EventHandler(this.checkBox3_CheckedChanged);
+            ChangeFPSCap.AutoSize = true;
+            ChangeFPSCap.FlatAppearance.CheckedBackColor = Color.FromArgb(0, 192, 0);
+            ChangeFPSCap.Location = new Point(195, 62);
+            ChangeFPSCap.Name = "ChangeFPSCap";
+            ChangeFPSCap.Size = new Size(113, 19);
+            ChangeFPSCap.TabIndex = 3;
+            ChangeFPSCap.Text = "Change FPS Cap";
+            ChangeFPSCap.UseVisualStyleBackColor = true;
+            ChangeFPSCap.CheckedChanged += checkBox3_CheckedChanged;
             // 
             // Logs
             // 
-            this.Logs.Location = new System.Drawing.Point(10, 112);
-            this.Logs.Multiline = true;
-            this.Logs.Name = "Logs";
-            this.Logs.ReadOnly = true;
-            this.Logs.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Logs.Size = new System.Drawing.Size(188, 122);
-            this.Logs.TabIndex = 4;
-            this.Logs.TextChanged += new System.EventHandler(this.Logs_TextChanged);
+            Logs.BackColor = Color.FromArgb(24, 24, 24);
+            Logs.BorderStyle = BorderStyle.FixedSingle;
+            Logs.ForeColor = SystemColors.Window;
+            Logs.Location = new Point(10, 112);
+            Logs.Multiline = true;
+            Logs.Name = "Logs";
+            Logs.ReadOnly = true;
+            Logs.ScrollBars = ScrollBars.Vertical;
+            Logs.Size = new Size(188, 122);
+            Logs.TabIndex = 4;
+            Logs.TextChanged += Logs_TextChanged;
             // 
             // vulkanCheckBox
             // 
-            this.vulkanCheckBox.AutoSize = true;
-            this.vulkanCheckBox.Location = new System.Drawing.Point(330, 87);
-            this.vulkanCheckBox.Name = "vulkanCheckBox";
-            this.vulkanCheckBox.Size = new System.Drawing.Size(154, 19);
-            this.vulkanCheckBox.TabIndex = 5;
-            this.vulkanCheckBox.Text = "Use Vulkan Graphics API";
-            this.vulkanCheckBox.UseVisualStyleBackColor = true;
-            this.vulkanCheckBox.CheckedChanged += new System.EventHandler(this.vulkanCheckBox_CheckedChanged);
+            vulkanCheckBox.AutoSize = true;
+            vulkanCheckBox.Location = new Point(330, 87);
+            vulkanCheckBox.Name = "vulkanCheckBox";
+            vulkanCheckBox.Size = new Size(154, 19);
+            vulkanCheckBox.TabIndex = 5;
+            vulkanCheckBox.Text = "Use Vulkan Graphics API";
+            vulkanCheckBox.UseVisualStyleBackColor = true;
+            vulkanCheckBox.CheckedChanged += vulkanCheckBox_CheckedChanged;
             // 
             // FPS
             // 
-            this.FPS.Location = new System.Drawing.Point(89, 60);
-            this.FPS.Name = "FPS";
-            this.FPS.Size = new System.Drawing.Size(100, 23);
-            this.FPS.TabIndex = 6;
-            this.FPS.TextChanged += new System.EventHandler(this.FPS_TextChanged);
+            FPS.BackColor = Color.FromArgb(24, 24, 24);
+            FPS.BorderStyle = BorderStyle.FixedSingle;
+            FPS.ForeColor = SystemColors.Window;
+            FPS.Location = new Point(89, 60);
+            FPS.Name = "FPS";
+            FPS.Size = new Size(100, 23);
+            FPS.TabIndex = 6;
+            FPS.TextChanged += FPS_TextChanged;
             // 
             // UnlockFPS
             // 
-            this.UnlockFPS.AutoSize = true;
-            this.UnlockFPS.Location = new System.Drawing.Point(330, 62);
-            this.UnlockFPS.Name = "UnlockFPS";
-            this.UnlockFPS.Size = new System.Drawing.Size(85, 19);
-            this.UnlockFPS.TabIndex = 7;
-            this.UnlockFPS.Text = "Unlock FPS";
-            this.UnlockFPS.UseVisualStyleBackColor = true;
-            this.UnlockFPS.CheckedChanged += new System.EventHandler(this.UnlockFPS_CheckedChanged);
+            UnlockFPS.AutoSize = true;
+            UnlockFPS.Location = new Point(330, 62);
+            UnlockFPS.Name = "UnlockFPS";
+            UnlockFPS.Size = new Size(85, 19);
+            UnlockFPS.TabIndex = 7;
+            UnlockFPS.Text = "Unlock FPS";
+            UnlockFPS.UseVisualStyleBackColor = true;
+            UnlockFPS.CheckedChanged += UnlockFPS_CheckedChanged;
             // 
             // SelectAll
             // 
-            this.SelectAll.Location = new System.Drawing.Point(10, 8);
-            this.SelectAll.Name = "SelectAll";
-            this.SelectAll.Size = new System.Drawing.Size(75, 23);
-            this.SelectAll.TabIndex = 9;
-            this.SelectAll.Text = "Select All";
-            this.SelectAll.UseVisualStyleBackColor = true;
-            this.SelectAll.Click += new System.EventHandler(this.SelectAll_Click);
+            SelectAll.BackColor = Color.FromArgb(24, 24, 24);
+            SelectAll.FlatAppearance.BorderColor = Color.FromArgb(64, 64, 64);
+            SelectAll.FlatStyle = FlatStyle.Flat;
+            SelectAll.Location = new Point(10, 8);
+            SelectAll.Name = "SelectAll";
+            SelectAll.Size = new Size(75, 23);
+            SelectAll.TabIndex = 9;
+            SelectAll.Text = "Select All";
+            SelectAll.UseVisualStyleBackColor = false;
+            SelectAll.Click += SelectAll_Click;
             // 
             // GraphicUnlock
             // 
-            this.GraphicUnlock.AutoSize = true;
-            this.GraphicUnlock.Location = new System.Drawing.Point(195, 12);
-            this.GraphicUnlock.Name = "GraphicUnlock";
-            this.GraphicUnlock.Size = new System.Drawing.Size(129, 19);
-            this.GraphicUnlock.TabIndex = 10;
-            this.GraphicUnlock.Text = "Unlock All Graphics";
-            this.GraphicUnlock.UseVisualStyleBackColor = true;
-            this.GraphicUnlock.CheckedChanged += new System.EventHandler(this.GraphicUnlock_CheckedChanged);
+            GraphicUnlock.AutoSize = true;
+            GraphicUnlock.Location = new Point(195, 12);
+            GraphicUnlock.Name = "GraphicUnlock";
+            GraphicUnlock.Size = new Size(129, 19);
+            GraphicUnlock.TabIndex = 10;
+            GraphicUnlock.Text = "Unlock All Graphics";
+            GraphicUnlock.UseVisualStyleBackColor = true;
+            GraphicUnlock.CheckedChanged += GraphicUnlock_CheckedChanged;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 240);
-            this.Controls.Add(this.GraphicUnlock);
-            this.Controls.Add(this.SelectAll);
-            this.Controls.Add(this.UnlockFPS);
-            this.Controls.Add(this.FPS);
-            this.Controls.Add(this.vulkanCheckBox);
-            this.Controls.Add(this.Logs);
-            this.Controls.Add(this.ChangeFPSCap);
-            this.Controls.Add(this.ChangeSound);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.ChangeCursor);
-            this.Name = "Form1";
-            this.Text = "Roblox Patcher Made by StealthDrifter";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(18, 18, 18);
+            ClientSize = new Size(496, 240);
+            Controls.Add(GraphicUnlock);
+            Controls.Add(SelectAll);
+            Controls.Add(UnlockFPS);
+            Controls.Add(FPS);
+            Controls.Add(vulkanCheckBox);
+            Controls.Add(Logs);
+            Controls.Add(ChangeFPSCap);
+            Controls.Add(ChangeSound);
+            Controls.Add(button1);
+            Controls.Add(ChangeCursor);
+            ForeColor = SystemColors.Control;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "Form1";
+            Text = "Roblox Patcher Made by StealthDrifter";
+            Load += Form1_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
