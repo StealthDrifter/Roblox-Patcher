@@ -1,14 +1,16 @@
+using Roblox_Patcher;
 using System.Windows.Forms;
 
 namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
+        private bool _changingVisibility = false;
 
         public Form1()
         {
             InitializeComponent();
-            FPS.Visible = false;
+            Program.ShowFormEvent += ShowForm;
         }
 
         public void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -19,30 +21,7 @@ namespace WinFormsApp1
         {
             // change death sound checkbox
         }
-        private void checkBox3_CheckedChanged(object sender, EventArgs e)
-        {
-            // change FPS cap checkbox
-            FPS.Visible = ChangeFPSCap.Checked;
-            if (!ChangeFPSCap.Checked)
-            {
-                Program.fps = 0;
-            }
-        }
 
-        private void UnlockFPS_CheckedChanged(object sender, EventArgs e)
-        {
-            if (UnlockFPS.Checked)
-            {
-                ChangeFPSCap.Visible = false;
-                ChangeFPSCap.Checked = false;
-                Program.fps = 99999999;
-            }
-            if (!UnlockFPS.Checked)
-            {
-                ChangeFPSCap.Visible = true;
-                Program.fps = 0;
-            }
-        }
         private void vulkanCheckBox_CheckedChanged(object sender, EventArgs e)
         {
         }
@@ -60,13 +39,34 @@ namespace WinFormsApp1
         {
             Program.modifyCursor = ChangeCursor.Checked;
             Program.modifyDeathSound = ChangeSound.Checked;
-            Program.modifyConfig = UnlockFPS.Checked || ChangeFPSCap.Checked || vulkanCheckBox.Checked || GraphicUnlock.Checked;
+            Program.modifyConfig = vulkanCheckBox.Checked;
             Program.vulkan = vulkanCheckBox.Checked;
-            Program.allGraphics = GraphicUnlock.Checked;
+            Program.setVolume = volumeControl.Checked;
+        }
+
+        public void ShowForm()
+        {
+            Show();
+            ShowInTaskbar = true;
+            notifyIcon1.Visible = false;
+            WindowState = FormWindowState.Normal;
+            BringToFront();
+            Activate();
+            Program.background = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (Environment.GetCommandLineArgs().Contains("--startup"))
+            {
+                WindowState = FormWindowState.Minimized;
+                Hide();
+                ShowInTaskbar = false;
+                notifyIcon1.Visible = true;
+                Program.background = true;
+                _ = new Listener().RobloxListener(Logs);
+                Program.ListenerStarted = true;
+            }
         }
 
         private void Logs_TextChanged(object sender, EventArgs e)
@@ -75,20 +75,56 @@ namespace WinFormsApp1
 
         private void FPS_TextChanged(object sender, EventArgs e)
         {
-            if (int.TryParse(FPS.Text, out var fpsvar))
-            {
-                Program.fps = fpsvar;
-            }
         }
 
         private void SelectAll_Click(object sender, EventArgs e)
         {
             ChangeCursor.Checked = true;
             ChangeSound.Checked = true;
-            UnlockFPS.Checked = true;
             vulkanCheckBox.Checked = true;
-            GraphicUnlock.Checked = true;
         }
 
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                ShowInTaskbar = false;
+                notifyIcon1.Visible = true;
+                Program.background = true;
+                Hide();
+            }
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, EventArgs e)
+        {
+            Show();
+            ShowInTaskbar = true;
+            notifyIcon1.Visible = false;
+            WindowState = FormWindowState.Normal;
+            BringToFront();
+            Activate();
+            Program.background = false;
+        }
+
+        private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
+        {
+            // volume control
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            // volume display
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            textBox1.Text = trackBar1.Value.ToString();
+            Program.volume = trackBar1.Value;
+        }
+
+        private void onStartup_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.SetStartup(onStartup.Checked);
+        }
     }
 }

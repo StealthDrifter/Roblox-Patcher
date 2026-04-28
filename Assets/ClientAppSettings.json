@@ -1,5 +1,3 @@
 {
-  "DFIntTaskSchedulerTargetFps": "0",
-  "FFlagDebugGraphicsPreferVulkan": false,
-  "FFlagFixGraphicsQuality": false
+  "FFlagDebugGraphicsPreferVulkan": false
 }

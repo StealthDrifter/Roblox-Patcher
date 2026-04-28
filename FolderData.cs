@@ -8,8 +8,8 @@ namespace Roblox_Patcher
 {
     internal class FolderData
     {
-        public string folderDirectory { get; set; }
+        public string FolderDirectory { get; set; }
 
-        public DateTime folderAge { get; set; }
+        public DateTime FolderAge { get; set; }
     }
 }

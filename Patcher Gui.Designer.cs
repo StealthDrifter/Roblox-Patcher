@@ -31,30 +31,33 @@ namespace WinFormsApp1
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             ChangeCursor = new CheckBox();
             button1 = new Button();
             ChangeSound = new CheckBox();
-            ChangeFPSCap = new CheckBox();
             Logs = new TextBox();
             vulkanCheckBox = new CheckBox();
-            FPS = new TextBox();
-            UnlockFPS = new CheckBox();
             SelectAll = new Button();
-            GraphicUnlock = new CheckBox();
             groupBox1 = new GroupBox();
             groupBox2 = new GroupBox();
+            volumeControl = new CheckBox();
+            textBox1 = new TextBox();
+            trackBar1 = new TrackBar();
             label1 = new Label();
+            notifyIcon1 = new NotifyIcon(components);
+            onStartup = new CheckBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             SuspendLayout();
             // 
             // ChangeCursor
             // 
-            ChangeCursor.Anchor = AnchorStyles.Right;
+            ChangeCursor.Anchor = AnchorStyles.None;
             ChangeCursor.AutoSize = true;
             ChangeCursor.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ChangeCursor.Location = new Point(10, 88);
+            ChangeCursor.Location = new Point(8, 51);
             ChangeCursor.Margin = new Padding(4, 3, 4, 3);
             ChangeCursor.Name = "ChangeCursor";
             ChangeCursor.Size = new Size(186, 25);
@@ -71,7 +74,7 @@ namespace WinFormsApp1
             button1.FlatStyle = FlatStyle.Flat;
             button1.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
             button1.ForeColor = SystemColors.ButtonFace;
-            button1.Location = new Point(179, 27);
+            button1.Location = new Point(179, 29);
             button1.Margin = new Padding(4, 3, 4, 3);
             button1.Name = "button1";
             button1.Size = new Size(179, 147);
@@ -82,10 +85,10 @@ namespace WinFormsApp1
             // 
             // ChangeSound
             // 
-            ChangeSound.Anchor = AnchorStyles.Right;
+            ChangeSound.Anchor = AnchorStyles.None;
             ChangeSound.AutoSize = true;
             ChangeSound.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ChangeSound.Location = new Point(10, 57);
+            ChangeSound.Location = new Point(8, 20);
             ChangeSound.Margin = new Padding(4, 3, 4, 3);
             ChangeSound.Name = "ChangeSound";
             ChangeSound.Size = new Size(176, 25);
@@ -93,21 +96,6 @@ namespace WinFormsApp1
             ChangeSound.Text = "Change Death Sound";
             ChangeSound.UseVisualStyleBackColor = true;
             ChangeSound.CheckedChanged += checkBox2_CheckedChanged;
-            // 
-            // ChangeFPSCap
-            // 
-            ChangeFPSCap.Anchor = AnchorStyles.Right;
-            ChangeFPSCap.AutoSize = true;
-            ChangeFPSCap.FlatAppearance.CheckedBackColor = Color.FromArgb(0, 192, 0);
-            ChangeFPSCap.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            ChangeFPSCap.Location = new Point(125, 26);
-            ChangeFPSCap.Margin = new Padding(4, 3, 4, 3);
-            ChangeFPSCap.Name = "ChangeFPSCap";
-            ChangeFPSCap.Size = new Size(143, 25);
-            ChangeFPSCap.TabIndex = 3;
-            ChangeFPSCap.Text = "Change FPS Cap";
-            ChangeFPSCap.UseVisualStyleBackColor = true;
-            ChangeFPSCap.CheckedChanged += checkBox3_CheckedChanged;
             // 
             // Logs
             // 
@@ -122,16 +110,16 @@ namespace WinFormsApp1
             Logs.Name = "Logs";
             Logs.ReadOnly = true;
             Logs.ScrollBars = ScrollBars.Vertical;
-            Logs.Size = new Size(166, 150);
+            Logs.Size = new Size(166, 154);
             Logs.TabIndex = 4;
             Logs.TextChanged += Logs_TextChanged;
             // 
             // vulkanCheckBox
             // 
-            vulkanCheckBox.Anchor = AnchorStyles.Right;
+            vulkanCheckBox.Anchor = AnchorStyles.None;
             vulkanCheckBox.AutoSize = true;
             vulkanCheckBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            vulkanCheckBox.Location = new Point(10, 150);
+            vulkanCheckBox.Location = new Point(8, 82);
             vulkanCheckBox.Margin = new Padding(4, 3, 4, 3);
             vulkanCheckBox.Name = "vulkanCheckBox";
             vulkanCheckBox.Size = new Size(199, 25);
@@ -140,42 +128,14 @@ namespace WinFormsApp1
             vulkanCheckBox.UseVisualStyleBackColor = true;
             vulkanCheckBox.CheckedChanged += vulkanCheckBox_CheckedChanged;
             // 
-            // FPS
-            // 
-            FPS.Anchor = AnchorStyles.Right;
-            FPS.BackColor = Color.FromArgb(24, 24, 24);
-            FPS.BorderStyle = BorderStyle.FixedSingle;
-            FPS.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            FPS.ForeColor = SystemColors.Window;
-            FPS.Location = new Point(276, 23);
-            FPS.Margin = new Padding(4, 3, 4, 3);
-            FPS.Name = "FPS";
-            FPS.Size = new Size(82, 29);
-            FPS.TabIndex = 6;
-            FPS.TextChanged += FPS_TextChanged;
-            // 
-            // UnlockFPS
-            // 
-            UnlockFPS.Anchor = AnchorStyles.Right;
-            UnlockFPS.AutoSize = true;
-            UnlockFPS.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            UnlockFPS.Location = new Point(10, 26);
-            UnlockFPS.Margin = new Padding(4, 3, 4, 3);
-            UnlockFPS.Name = "UnlockFPS";
-            UnlockFPS.Size = new Size(107, 25);
-            UnlockFPS.TabIndex = 7;
-            UnlockFPS.Text = "Unlock FPS";
-            UnlockFPS.UseVisualStyleBackColor = true;
-            UnlockFPS.CheckedChanged += UnlockFPS_CheckedChanged;
-            // 
             // SelectAll
             // 
-            SelectAll.Anchor = AnchorStyles.Right;
+            SelectAll.Anchor = AnchorStyles.None;
             SelectAll.BackColor = Color.FromArgb(24, 24, 24);
             SelectAll.FlatAppearance.BorderColor = Color.FromArgb(64, 64, 64);
             SelectAll.FlatStyle = FlatStyle.Flat;
             SelectAll.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            SelectAll.Location = new Point(226, 161);
+            SelectAll.Location = new Point(226, 158);
             SelectAll.Margin = new Padding(4, 3, 4, 3);
             SelectAll.Name = "SelectAll";
             SelectAll.Size = new Size(132, 33);
@@ -183,20 +143,6 @@ namespace WinFormsApp1
             SelectAll.Text = "Select All";
             SelectAll.UseVisualStyleBackColor = false;
             SelectAll.Click += SelectAll_Click;
-            // 
-            // GraphicUnlock
-            // 
-            GraphicUnlock.Anchor = AnchorStyles.Right;
-            GraphicUnlock.AutoSize = true;
-            GraphicUnlock.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            GraphicUnlock.Location = new Point(10, 119);
-            GraphicUnlock.Margin = new Padding(4, 3, 4, 3);
-            GraphicUnlock.Name = "GraphicUnlock";
-            GraphicUnlock.Size = new Size(164, 25);
-            GraphicUnlock.TabIndex = 10;
-            GraphicUnlock.Text = "Unlock All Graphics";
-            GraphicUnlock.UseVisualStyleBackColor = true;
-            GraphicUnlock.CheckedChanged += GraphicUnlock_CheckedChanged;
             // 
             // groupBox1
             // 
@@ -206,11 +152,11 @@ namespace WinFormsApp1
             groupBox1.Controls.Add(button1);
             groupBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             groupBox1.ForeColor = Color.White;
-            groupBox1.Location = new Point(14, 220);
+            groupBox1.Location = new Point(14, 217);
             groupBox1.Margin = new Padding(4, 3, 4, 3);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(4, 3, 4, 3);
-            groupBox1.Size = new Size(366, 185);
+            groupBox1.Size = new Size(366, 189);
             groupBox1.TabIndex = 11;
             groupBox1.TabStop = false;
             groupBox1.Text = "Main";
@@ -219,13 +165,13 @@ namespace WinFormsApp1
             // 
             groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.BackColor = Color.FromArgb(15, 15, 15);
-            groupBox2.Controls.Add(GraphicUnlock);
+            groupBox2.Controls.Add(onStartup);
+            groupBox2.Controls.Add(volumeControl);
+            groupBox2.Controls.Add(textBox1);
+            groupBox2.Controls.Add(trackBar1);
             groupBox2.Controls.Add(ChangeCursor);
             groupBox2.Controls.Add(SelectAll);
             groupBox2.Controls.Add(ChangeSound);
-            groupBox2.Controls.Add(FPS);
-            groupBox2.Controls.Add(ChangeFPSCap);
-            groupBox2.Controls.Add(UnlockFPS);
             groupBox2.Controls.Add(vulkanCheckBox);
             groupBox2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             groupBox2.ForeColor = Color.White;
@@ -233,10 +179,45 @@ namespace WinFormsApp1
             groupBox2.Margin = new Padding(4, 3, 4, 3);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(4, 3, 4, 3);
-            groupBox2.Size = new Size(366, 200);
+            groupBox2.Size = new Size(366, 197);
             groupBox2.TabIndex = 12;
             groupBox2.TabStop = false;
             groupBox2.Text = "Patches";
+            // 
+            // volumeControl
+            // 
+            volumeControl.AutoSize = true;
+            volumeControl.Location = new Point(8, 116);
+            volumeControl.Name = "volumeControl";
+            volumeControl.Size = new Size(78, 24);
+            volumeControl.TabIndex = 12;
+            volumeControl.Text = "Volume";
+            volumeControl.UseVisualStyleBackColor = true;
+            volumeControl.CheckedChanged += checkBox1_CheckedChanged_1;
+            // 
+            // textBox1
+            // 
+            textBox1.BackColor = Color.FromArgb(24, 24, 24);
+            textBox1.BorderStyle = BorderStyle.FixedSingle;
+            textBox1.ForeColor = Color.White;
+            textBox1.Location = new Point(92, 115);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 27);
+            textBox1.TabIndex = 11;
+            textBox1.Text = "100";
+            textBox1.TextAlign = HorizontalAlignment.Center;
+            textBox1.TextChanged += textBox1_TextChanged;
+            // 
+            // trackBar1
+            // 
+            trackBar1.Location = new Point(8, 146);
+            trackBar1.Maximum = 100;
+            trackBar1.Name = "trackBar1";
+            trackBar1.Size = new Size(199, 45);
+            trackBar1.TabIndex = 10;
+            trackBar1.TickFrequency = 25;
+            trackBar1.Value = 100;
+            trackBar1.Scroll += trackBar1_Scroll;
             // 
             // label1
             // 
@@ -250,25 +231,45 @@ namespace WinFormsApp1
             label1.TabIndex = 11;
             label1.Text = "Made by StealthDrifter";
             // 
+            // notifyIcon1
+            // 
+            notifyIcon1.Icon = (Icon)resources.GetObject("notifyIcon1.Icon");
+            notifyIcon1.Text = "RBXPatcher";
+            notifyIcon1.DoubleClick += notifyIcon1_MouseDoubleClick;
+            // 
+            // onStartup
+            // 
+            onStartup.AutoSize = true;
+            onStartup.Location = new Point(230, 20);
+            onStartup.Name = "onStartup";
+            onStartup.Size = new Size(128, 24);
+            onStartup.TabIndex = 13;
+            onStartup.Text = "Run On Startup";
+            onStartup.UseVisualStyleBackColor = true;
+            onStartup.CheckedChanged += onStartup_CheckedChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(20, 20, 20);
-            ClientSize = new Size(394, 417);
+            ClientSize = new Size(394, 418);
             Controls.Add(label1);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             ForeColor = SystemColors.Control;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 3, 4, 3);
-            MinimumSize = new Size(410, 456);
+            MinimumSize = new Size(410, 429);
             Name = "Form1";
             Text = "RBXPatcher";
+            Load += Form1_Load;
+            Resize += Form1_Resize;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -278,16 +279,17 @@ namespace WinFormsApp1
         private CheckBox ChangeCursor;
         private Button button1;
         private CheckBox ChangeSound;
-        private CheckBox ChangeFPSCap;
         private TextBox Logs;
         private CheckBox vulkanCheckBox;
-        private TextBox FPS;
-        private CheckBox UnlockFPS;
         private Button SelectAll;
-        private CheckBox GraphicUnlock;
         private GroupBox groupBox1;
         private GroupBox groupBox2;
         private Label label1;
+        private NotifyIcon notifyIcon1;
+        private TrackBar trackBar1;
+        private TextBox textBox1;
+        private CheckBox volumeControl;
+        private CheckBox onStartup;
     }
 }
 

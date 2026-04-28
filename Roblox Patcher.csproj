@@ -16,6 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="NAudio" Version="2.3.0" />
+    <PackageReference Include="System.Management" Version="10.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Assets\ArrowCursor.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -25,7 +30,10 @@
     <None Update="Assets\ClientAppSettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\ouch.ogg">
+    <None Update="Assets\Defaults.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\oof.ogg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
