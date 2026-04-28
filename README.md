@@ -8,7 +8,4 @@ preview of program, win10/win11
 <img width="414" height="464" alt="image" src="https://github.com/user-attachments/assets/673a9c88-bd1d-47db-8b90-f9791fad6bcf" />
 
 
-![image](https://github.com/StealthDrifter/Roblox-Patcher/assets/53316578/f537f0d2-6073-48ac-9cd5-599ec9dcbeff)
-
-
 shoutout to "joe" for gui redesign
