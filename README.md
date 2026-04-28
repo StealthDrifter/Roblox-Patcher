@@ -1,6 +1,6 @@
 # Roblox-Patcher
 Allows you to modify your cursor, death sound, and config for ROBLOX.
-Config settings currently include: Setting FPS cap/Unlocking, Enabling all 21 graphics settings, and enabling Vulkan API.
+Config settings currently include: Changing death sound, Changing Cursor, Setting renderer to Vulkan, and volume control.
 When changing files in the Assets folder, make sure they have the same name and file extension.
 
 preview of program, win10/win11 
