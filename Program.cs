@@ -7,12 +7,13 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
+using static System.Windows.Forms.Design.AxImporter;
 
 namespace WinFormsApp1
 {
     internal static class Program
     {
-        public static event Action ShowFormEvent;
+        public static event Action? ShowFormEvent;
         public static bool modifyCursor = false;
         public static bool modifyDeathSound = false;
         public static bool modifyConfig = false;
@@ -24,6 +25,7 @@ namespace WinFormsApp1
         public static bool ListenerStarted = false;
         public static bool abandonShip = false;
         public static bool startup = false;
+        private static readonly string assetsDirectory = Path.Combine(AppContext.BaseDirectory, "Assets");
         [DllImport("user32.dll")]
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("user32.dll")]
@@ -115,17 +117,6 @@ namespace WinFormsApp1
                         continue;
                     }
                 }
-                else
-                {
-                    if (!SetDefaults(robloxPath, Logs))
-                    {
-                        ShowFormEvent?.Invoke();
-                        AppendLog(Logs, "Missing defaults file in Assets");
-                        ShowMessage(Logs, "Please create a Defaults.json in the Assets folder", "Failure! :(");
-                        filesSafe = false;
-                        continue;
-                    }
-                }
 
                 if (modifyConfig && !ModifyConfig())
                 {
@@ -157,6 +148,7 @@ namespace WinFormsApp1
                 ShowMessage(Logs, "Roblox has been modified!", "Success!"); }
                 filesSafe = false;
             }
+            AppendLog(Logs, "--------");
             filesSafe = true;
         }
 
@@ -199,29 +191,6 @@ namespace WinFormsApp1
             }
             AppendLog(Logs, "Failed to set volume after multiple attempts");
             return false;
-        }
-
-        private static bool SetDefaults(string robloxPath, TextBox Logs)
-        {
-            Defaults defaults = JsonSerializer.Deserialize<Defaults>(File.ReadAllText(@".\Assets\Defaults.json"));
-            if (defaults != null)
-            {
-                vulkan = defaults.vulkan;
-                modifyConfig = defaults.modifyConfig;
-                modifyCursor = defaults.modifyCursor;
-                modifyDeathSound = defaults.modifyDeathSound;
-                volume = defaults.volume;
-                setVolume = defaults.setVolume;
-                AppendLog(Logs, "Set options to defaults");
-                return true;
-            }
-            if (!ModifyDefaults(robloxPath))
-            {
-                return false;
-            }
-            defaults = JsonSerializer.Deserialize<Defaults>(File.ReadAllText(@".\Assets\Defaults.json"));
-            defaults.RobloxDirectory = robloxPath;
-            return true;
         }
 
         private static bool TryFindRoblox(out string robloxPath, TextBox Logs)
@@ -301,7 +270,7 @@ namespace WinFormsApp1
         {
             if (modifyDeathSound)
             {
-                if (!File.Exists(@".\Assets\oof.ogg"))
+                if (!File.Exists(Path.Combine(assetsDirectory, "oof.ogg")))
                 {
                     ShowFormEvent?.Invoke();
                     AppendLog(Logs, "Missing oof sound file in Assets");
@@ -312,7 +281,7 @@ namespace WinFormsApp1
             }
             if (modifyCursor)
             {
-                if (!File.Exists(@".\Assets\ArrowFarCursor.png") || !File.Exists(@".\Assets\ArrowCursor.png"))
+                if (!File.Exists(Path.Combine(assetsDirectory, "ArrowFarCursor.png")) || !File.Exists(Path.Combine(assetsDirectory, "ArrowCursor.png")))
                 {
                     ShowFormEvent?.Invoke();
                     AppendLog(Logs, "Missing cursor files in Assets");
@@ -323,7 +292,7 @@ namespace WinFormsApp1
             }
             if (modifyConfig)
             {
-                if (!File.Exists(@".\Assets\ClientAppSettings.json"))
+                if (!File.Exists(Path.Combine(assetsDirectory, "ClientAppSettings.json")))
                 {
                     ShowFormEvent?.Invoke();
                     AppendLog(Logs, "Missing config file in Assets");
@@ -335,7 +304,8 @@ namespace WinFormsApp1
 
             if (background)
             {
-                if (!File.Exists(@".\Assets\Defaults.json"))
+                string defaultsFilePath = Path.Combine(assetsDirectory, "Defaults.json");
+                if (!File.Exists(defaultsFilePath))
                 {
                     ShowFormEvent?.Invoke();
                     AppendLog(Logs, "Missing defaults file in Assets");
@@ -343,8 +313,8 @@ namespace WinFormsApp1
                     filesSafe = false;
                     return false;
                 }
-                Defaults defaults = JsonSerializer.Deserialize<Defaults>(File.ReadAllText(@".\Assets\Defaults.json"));
-                if (!string.IsNullOrEmpty(defaults.RobloxDirectory))
+                Defaults defaults = JsonSerializer.Deserialize<Defaults>(File.ReadAllText(defaultsFilePath));
+                if (defaults != null && !string.IsNullOrEmpty(defaults.RobloxDirectory))
                 {
                     if (robloxPath == defaults.RobloxDirectory)
                     {
@@ -373,7 +343,10 @@ namespace WinFormsApp1
                     filesSafe = true;
                     return false;
                 }
+                SetDefaults(robloxPath, Logs);
+                AppendLog(Logs, "Updated Roblox Path in defaults");
             }
+            AppendLog(Logs, "Files exist, continuing");
             filesSafe = false;
             return true;
         }
@@ -393,9 +366,38 @@ namespace WinFormsApp1
             }
         }
 
+        private static bool SetDefaults(string robloxPath, TextBox Logs)
+        {
+            string defaultsFilePath = Path.Combine(assetsDirectory, "Defaults.json");
+            if (!File.Exists(defaultsFilePath))
+            {
+                return false;
+            }
+            Defaults defaults = JsonSerializer.Deserialize<Defaults>(File.ReadAllText(defaultsFilePath));
+            if (defaults != null)
+            {
+                vulkan = defaults.vulkan;
+                modifyConfig = defaults.modifyConfig;
+                modifyCursor = defaults.modifyCursor;
+                modifyDeathSound = defaults.modifyDeathSound;
+                volume = defaults.volume;
+                setVolume = defaults.setVolume;
+                AppendLog(Logs, "Set options to defaults");
+                ModifyDefaults(robloxPath);
+                AppendLog(Logs, "Updated Roblox Path in defaults");
+                return true;
+            }
+            if (!ModifyDefaults(robloxPath))
+            {
+                return false;
+            }
+            return true;
+        }
+
         private static bool ModifyDefaults(string robloxPath)
         {
-            if (!File.Exists(@".\Assets\Defaults.json"))
+            string defaultsFilePath = Path.Combine(assetsDirectory, "Defaults.json");
+            if (!File.Exists(defaultsFilePath))
             {
                 return false;
             }
@@ -413,7 +415,6 @@ namespace WinFormsApp1
                 volume = volume,
                 setVolume = setVolume
             };
-            string defaultsFilePath = @".\Assets\Defaults.json";
             string jsonString = JsonSerializer.Serialize(defaults, options);
             File.WriteAllText(defaultsFilePath, jsonString);
             return true;
@@ -421,7 +422,8 @@ namespace WinFormsApp1
 
         private static bool ModifyConfig()
         {
-            if (!File.Exists(@".\Assets\ClientAppSettings.json")) {
+            string configFilePath = Path.Combine(assetsDirectory, "ClientAppSettings.json");
+            if (!File.Exists(configFilePath)) {
                 return false;
             }
             var options = new JsonSerializerOptions
@@ -432,7 +434,6 @@ namespace WinFormsApp1
             {
                 FFlagDebugGraphicsPreferVulkan = vulkan,
             };
-            string configFilePath = @".\Assets\ClientAppSettings.json";
             string jsonString = JsonSerializer.Serialize(config, options);
             File.WriteAllText(configFilePath, jsonString);
 
@@ -445,7 +446,7 @@ namespace WinFormsApp1
             {
                 if (modifyDeathSound)
                 {
-                    string newSoundFile = @".\Assets\oof.ogg";
+                    string newSoundFile = Path.Combine(assetsDirectory, "oof.ogg");
                     string oldSoundFile = Path.Combine(folderName, @"content\sounds\oof.ogg");
                     AppendLog(Logs, "Modifying Sound File");
 
@@ -454,8 +455,8 @@ namespace WinFormsApp1
                 }
                 if (modifyCursor)
                 {
-                    string newFarCursor = @".\Assets\ArrowFarCursor.png";
-                    string newArrowCursor = @".\Assets\ArrowCursor.png";
+                    string newFarCursor = Path.Combine(assetsDirectory, "ArrowFarCursor.png");
+                    string newArrowCursor = Path.Combine(assetsDirectory, "ArrowCursor.png");
                     string oldFarCursor = Path.Combine(folderName, @"content\textures\Cursors\KeyboardMouse\ArrowFarCursor.png");
                     string oldArrowCursor = Path.Combine(folderName, @"content\textures\Cursors\KeyboardMouse\ArrowCursor.png");
                     AppendLog(Logs, "Modifying Cursor Files");
@@ -466,7 +467,7 @@ namespace WinFormsApp1
                 }
                 if (modifyConfig)
                 {
-                    string newConfig = @".\Assets\ClientAppSettings.json";
+                    string newConfig = Path.Combine(assetsDirectory, "ClientAppSettings.json");
                     string oldConfig = Path.Combine(folderName, @"ClientSettings\ClientAppSettings.json");
                     AppendLog(Logs, "Modifying config");
 
