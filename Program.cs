@@ -187,7 +187,7 @@ namespace WinFormsApp1
                 }
                 AppendLog(Logs, "Failed to set Audio, trying again, is roblox open?");
                 attempts++;
-                Thread.Sleep(3000); // wait a bit before trying again
+                Thread.Sleep(6000); // wait a bit before trying again
             }
             AppendLog(Logs, "Failed to set volume after multiple attempts");
             return false;
