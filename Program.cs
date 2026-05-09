@@ -154,14 +154,15 @@ namespace WinFormsApp1
 
         private static bool SetVolume(int volume, TextBox Logs)
         {
-            using var deviceEnumerator = new MMDeviceEnumerator();
-            var device = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            
 
             int attempts = 0;
             AppendLog(Logs, "Setting volume, program may look frozen. This is normal, Make sure to have roblox open.");
             while (attempts < 10)
             {
                 AppendLog(Logs, "Attempting to set volume, Attempt #" + (attempts + 1));
+                using var deviceEnumerator = new MMDeviceEnumerator();
+                var device = deviceEnumerator.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
                 var sessions = device.AudioSessionManager.Sessions;
                 for (int i = 0; i < sessions.Count; i++)
                 {
